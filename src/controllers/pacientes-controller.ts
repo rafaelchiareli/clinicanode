@@ -45,7 +45,7 @@ export function buscarPacientePorId(
     }
     const paciente = pacientes.find(x => x.id == id);
     if (!paciente) {
-        return response.status(404).json({]
+        return response.status(404).json({
             mensagem: "Paciente não encontrado"
         });
     }

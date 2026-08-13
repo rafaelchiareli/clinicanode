@@ -1,17 +1,6 @@
-import express from 'express';
-
-
-const app = express();
-
-const port = 3000;
-app.use(express.json());
-
-app.get("/", (request, response) => {
-    return response.json({
-        mensagem: "Api está funcionando"
-    });
+import { app } from "./app";
+const porta = 3000;
+app.listen(porta,() => {
+    console.log(`servidor rodando em http://localhost:${porta}`);
+    console.log(`Swagger em http://localhost:${porta}/docs`);
 });
-
-app.listen(port, () => {
-    console.log(`Servidor escutando a porta ${port}`);
-} )
