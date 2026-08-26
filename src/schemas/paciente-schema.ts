@@ -4,7 +4,7 @@ export const pacienteInputSchema = z.object({
     nome: z
         .string({ error: "O Nome é obrigatório" })
         .trim()
-        .min(3, "O nome deveO possuir no mínimo 3 caracteres")
+        .min(3, "O nome deve possuir no mínimo 3 caracteres")
         .max(100, "O nome deve possuir no máximo 100 caracters"),
     cpf: z
         .string({ error: "O campo cpf é obrigatório" })

@@ -2,6 +2,7 @@ import express from 'express';
 import swaggerUi from 'swagger-ui-express';
 import { swaggerSpec } from './config/swagger';
 import { pacientesRoutes } from './routes/pacientes-routes';
+import { erroHandler } from './middlewares/error-handler';
 
 const app = express();
 
@@ -31,4 +32,5 @@ app.use(
   })
 );
 app.use("/pacientes", pacientesRoutes);
+app.use(erroHandler);
 export {app}

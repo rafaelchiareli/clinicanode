@@ -7,6 +7,8 @@ import {
     listarPacientes
 } from "../controllers/pacientes-controller";
 
+import { validar } from "../middlewares/validar";
+import { pacienteIdSchema, pacienteInputSchema } from "../schemas/paciente-schema";
 const pacientesRoutes = Router();
 /**
  * @openapi
@@ -58,7 +60,7 @@ pacientesRoutes.get("/", listarPacientes);
  *       404:
  *         description: Paciente não encontrado
  */
-pacientesRoutes.get("/:id", buscarPacientePorId);
+pacientesRoutes.get("/:id", validar(pacienteIdSchema, "params"), buscarPacientePorId);
 
 
 /**
@@ -85,7 +87,7 @@ pacientesRoutes.get("/:id", buscarPacientePorId);
  *       409:
  *         description: CPF já cadastrado
  */
-pacientesRoutes.post("/", criarPaciente);
+pacientesRoutes.post("/", validar(pacienteInputSchema,"body"), criarPaciente);
 
 /**
  * @openapi
@@ -115,7 +117,7 @@ pacientesRoutes.post("/", criarPaciente);
  *       409:
  *         description: CPF pertencente a outro paciente
  */
-pacientesRoutes.put("/:id", atualizarPaciente);
+pacientesRoutes.put("/:id", validar(pacienteIdSchema, "params"), validar(pacienteInputSchema, "body"), atualizarPaciente);
 
 /**
  * @openapi
@@ -137,6 +139,6 @@ pacientesRoutes.put("/:id", atualizarPaciente);
  *       404:
  *         description: Paciente não encontrado
  */
-pacientesRoutes.delete("/:id", excluirPaciente);
+pacientesRoutes.delete("/:id", validar(pacienteIdSchema, "params"), excluirPaciente);
 
 export { pacientesRoutes }
