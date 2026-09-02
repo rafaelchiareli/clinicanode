@@ -3,6 +3,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.pacientesRoutes = void 0;
 const express_1 = require("express");
 const pacientes_controller_1 = require("../controllers/pacientes-controller");
+const validar_1 = require("../middlewares/validar");
+const paciente_schema_1 = require("../schemas/paciente-schema");
 const pacientesRoutes = (0, express_1.Router)();
 exports.pacientesRoutes = pacientesRoutes;
 /**
@@ -53,7 +55,7 @@ pacientesRoutes.get("/", pacientes_controller_1.listarPacientes);
  *       404:
  *         description: Paciente não encontrado
  */
-pacientesRoutes.get("/:id", pacientes_controller_1.buscarPacientePorId);
+pacientesRoutes.get("/:id", (0, validar_1.validar)(paciente_schema_1.pacienteIdSchema, "params"), pacientes_controller_1.buscarPacientePorId);
 /**
  * @openapi
  * /pacientes:
@@ -78,7 +80,7 @@ pacientesRoutes.get("/:id", pacientes_controller_1.buscarPacientePorId);
  *       409:
  *         description: CPF já cadastrado
  */
-pacientesRoutes.post("/", pacientes_controller_1.criarPaciente);
+pacientesRoutes.post("/", (0, validar_1.validar)(paciente_schema_1.pacienteInputSchema, "body"), pacientes_controller_1.criarPaciente);
 /**
  * @openapi
  * /pacientes/{id}:
@@ -107,7 +109,7 @@ pacientesRoutes.post("/", pacientes_controller_1.criarPaciente);
  *       409:
  *         description: CPF pertencente a outro paciente
  */
-pacientesRoutes.put("/:id", pacientes_controller_1.atualizarPaciente);
+pacientesRoutes.put("/:id", (0, validar_1.validar)(paciente_schema_1.pacienteIdSchema, "params"), (0, validar_1.validar)(paciente_schema_1.pacienteInputSchema, "body"), pacientes_controller_1.atualizarPaciente);
 /**
  * @openapi
  * /pacientes/{id}:
@@ -128,4 +130,4 @@ pacientesRoutes.put("/:id", pacientes_controller_1.atualizarPaciente);
  *       404:
  *         description: Paciente não encontrado
  */
-pacientesRoutes.delete("/:id", pacientes_controller_1.excluirPaciente);
+pacientesRoutes.delete("/:id", (0, validar_1.validar)(paciente_schema_1.pacienteIdSchema, "params"), pacientes_controller_1.excluirPaciente);

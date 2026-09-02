@@ -8,6 +8,7 @@ const express_1 = __importDefault(require("express"));
 const swagger_ui_express_1 = __importDefault(require("swagger-ui-express"));
 const swagger_1 = require("./config/swagger");
 const pacientes_routes_1 = require("./routes/pacientes-routes");
+const error_handler_1 = require("./middlewares/error-handler");
 const app = (0, express_1.default)();
 exports.app = app;
 app.use(express_1.default.json());
@@ -30,3 +31,4 @@ app.use("/docs", swagger_ui_express_1.default.serve, swagger_ui_express_1.defaul
     }
 }));
 app.use("/pacientes", pacientes_routes_1.pacientesRoutes);
+app.use(error_handler_1.erroHandler);
